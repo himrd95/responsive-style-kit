@@ -1,0 +1,40 @@
+{
+  "name": "responsive-style-kit",
+  "version": "1.0.1",
+  "description": "A React utility for responsive scaling of styled-components with viewport-based size hooks.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "test": "echo \"No tests yet\""
+  },
+  "keywords": [
+    "responsive",
+    "styled-components",
+    "react",
+    "scaling",
+    "hooks",
+    "utility",
+    "viewport",
+    "responsive design"
+  ],
+  "author": "Himanshu Dwivedi",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/himrd95/responsive-style-kit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/himrd95/responsive-style-kit/issues"
+  },
+  "homepage": "https://github.com/himrd95/responsive-style-kit#readme",
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "styled-components": "^6.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
