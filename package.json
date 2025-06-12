@@ -21,7 +21,11 @@
     "hooks",
     "utility",
     "viewport",
-    "responsive design"
+    "responsive design",
+    "responsive hook",
+    "responsive utility",
+    "viewport scaling",
+    "theme provider"
   ],
   "author": "Himanshu Dwivedi",
   "license": "MIT",
