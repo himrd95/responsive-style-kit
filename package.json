@@ -10,7 +10,8 @@
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
-    "test": "echo \"No tests yet\""
+    "test": "echo \"No tests yet\"",
+    "publish:package": "npm whoami && npm run build && npm version patch && npm publish --access public"
   },
   "keywords": [
     "responsive",
