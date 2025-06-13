@@ -1,0 +1,57 @@
+name: Weekly NPM Stats Report
+
+on:
+  schedule:
+    - cron: "0 8 * * 1" # Every Monday at 08:00 UTC
+  workflow_dispatch:
+
+jobs:
+  generate-stats:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install axios dayjs
+
+      - name: Fetch and Save Download Stats
+        run: |
+          node <<'EOF'
+          const fs = require('fs');
+          const axios = require('axios');
+          const dayjs = require('dayjs');
+
+          const packageName = 'responsive-style-kit';
+          const url = `https://api.npmjs.org/downloads/range/last-month/${packageName}`;
+
+          axios.get(url)
+            .then(response => {
+              const downloads = response.data.downloads;
+              const markdown = ['# 📦 NPM Downloads (Last 30 Days)', '', '| Date | Downloads |', '|------|-----------|'];
+              downloads.forEach(entry => {
+                markdown.push(`| ${entry.day} | ${entry.downloads} |`);
+              });
+              fs.mkdirSync('./stats', { recursive: true });
+              fs.writeFileSync('./stats/npm-downloads.md', markdown.join('\n'));
+            })
+            .catch(err => {
+              console.error('Failed to fetch NPM stats', err);
+              process.exit(1);
+            });
+          EOF
+
+      - name: Commit & Push Report
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add ./stats/npm-downloads.md
+          git commit -m "📊 Update NPM download stats"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
