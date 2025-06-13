@@ -7,8 +7,12 @@
       "strict": true,
       "esModuleInterop": true,
       "moduleResolution": "node",
-      "jsx": "react-jsx"
+      "jsx": "react-jsx",
+      "rootDir": "./src",
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true
     },
-    "include": ["src"]
+    "include": ["src"],
+    "exclude": ["node_modules", "dist"]
   }
   
