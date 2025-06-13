@@ -155,5 +155,5 @@ MIT License © 2025 [himrd95](https://github.com/himrd95)
 
 <!-- START_NPM_STATS -->
 <!-- This section is updated automatically every Monday -->
-[Click here to view full download stats](./stats/npm-downloads.md)
+![npm](https://img.shields.io/npm/dw/responsive-style-kit?label=weekly%20downloads)
 <!-- END_NPM_STATS -->
