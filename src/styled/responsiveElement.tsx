@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import { useResponsiveContext } from '../theme/ResponsiveThemeProvider';
-import { DIMENSION_TYPE } from '../utils/dimensions';
+import { DIMENSION_TYPE, useResponsiveDimension } from '../utils/dimensions';
 
 interface ResponsiveElementProps {
   width?: number;
@@ -24,42 +23,45 @@ const ResponsiveElementBase: React.FC<ResponsiveElementProps> = ({
   as: Component = 'div',
   ...props
 }) => {
-  const responsive = useResponsiveContext();
-  const { scaleWidth, scaleHeight } = responsive;
+  // Calculate all responsive dimensions using the hook
+  const width = props.width ? useResponsiveDimension(DIMENSION_TYPE.HORIZONTAL, props.width) : undefined;
+  const height = props.height ? useResponsiveDimension(DIMENSION_TYPE.VERTICAL, props.height) : undefined;
+  const fontSize = props.fontSize ? useResponsiveDimension(DIMENSION_TYPE.HORIZONTAL, props.fontSize) : undefined;
+  
+  const marginTop = props.marginTop ? useResponsiveDimension(DIMENSION_TYPE.VERTICAL, props.marginTop) : undefined;
+  const marginBottom = props.marginBottom ? useResponsiveDimension(DIMENSION_TYPE.VERTICAL, props.marginBottom) : undefined;
+  const marginLeft = props.marginLeft ? useResponsiveDimension(DIMENSION_TYPE.HORIZONTAL, props.marginLeft) : undefined;
+  const marginRight = props.marginRight ? useResponsiveDimension(DIMENSION_TYPE.HORIZONTAL, props.marginRight) : undefined;
+  
+  const paddingTop = props.paddingTop ? useResponsiveDimension(DIMENSION_TYPE.VERTICAL, props.paddingTop) : undefined;
+  const paddingBottom = props.paddingBottom ? useResponsiveDimension(DIMENSION_TYPE.VERTICAL, props.paddingBottom) : undefined;
+  const paddingLeft = props.paddingLeft ? useResponsiveDimension(DIMENSION_TYPE.HORIZONTAL, props.paddingLeft) : undefined;
+  const paddingRight = props.paddingRight ? useResponsiveDimension(DIMENSION_TYPE.HORIZONTAL, props.paddingRight) : undefined;
 
-  const style = useMemo(() => {
-    const baseStyle: Record<string, number | undefined> = {
-      // Horizontal dimensions
-      width: props.width ? props.width * scaleWidth : undefined,
-      marginLeft: props.marginLeft ? props.marginLeft * scaleWidth : undefined,
-      marginRight: props.marginRight ? props.marginRight * scaleWidth : undefined,
-      paddingLeft: props.paddingLeft ? props.paddingLeft * scaleWidth : undefined,
-      paddingRight: props.paddingRight ? props.paddingRight * scaleWidth : undefined,
-      fontSize: props.fontSize ? props.fontSize * scaleWidth : undefined,
-
-      // Vertical dimensions
-      height: props.height ? props.height * scaleHeight : undefined,
-      marginTop: props.marginTop ? props.marginTop * scaleHeight : undefined,
-      marginBottom: props.marginBottom ? props.marginBottom * scaleHeight : undefined,
-      paddingTop: props.paddingTop ? props.paddingTop * scaleHeight : undefined,
-      paddingBottom: props.paddingBottom ? props.paddingBottom * scaleHeight : undefined,
-    };
-
-    return baseStyle;
-  }, [
-    props.width,
-    props.height,
-    props.fontSize,
-    props.marginTop,
-    props.marginBottom,
-    props.marginLeft,
-    props.marginRight,
-    props.paddingTop,
-    props.paddingBottom,
-    props.paddingLeft,
-    props.paddingRight,
-    scaleWidth,
-    scaleHeight
+  const style = useMemo(() => ({
+    width,
+    height,
+    fontSize,
+    marginTop,
+    marginBottom,
+    marginLeft,
+    marginRight,
+    paddingTop,
+    paddingBottom,
+    paddingLeft,
+    paddingRight,
+  }), [
+    width,
+    height,
+    fontSize,
+    marginTop,
+    marginBottom,
+    marginLeft,
+    marginRight,
+    paddingTop,
+    paddingBottom,
+    paddingLeft,
+    paddingRight
   ]);
 
   return <Component style={style}>{children}</Component>;

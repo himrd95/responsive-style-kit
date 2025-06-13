@@ -4,9 +4,9 @@ A TypeScript-based utility toolkit for responsive React apps. It provides viewpo
 
 ## ✨ Features
 
-- ✅ Dynamic scaling of width, height, fontSize, margin, padding
+- ✅ Dynamic scaling of width, height, fontSize, and directional spacing (margins/padding)
 - 🎯 Built with TypeScript
-- ⚛️ Includes `useResponsive` hook for viewport-based scaling
+- ⚛️ Includes `useResponsive` and `useResponsiveDimension` hooks
 - 🌐 Based on a customizable base design resolution (default: 360×722)
 - 🎨 Optional styled-components integration
 - 🔄 Automatic window resize handling with debouncing
@@ -128,10 +128,10 @@ const MyComponent = () => {
 ### 4. Using the Responsive Hook Directly
 
 ```tsx
-import { useResponsiveContext } from 'responsive-style-kit';
+import { useResponsive } from 'responsive-style-kit';
 
 const MyComponent = () => {
-  const { scaleWidth, scaleHeight, vw, vh } = useResponsiveContext();
+  const { scaleWidth, scaleHeight, vw, vh } = useResponsive();
   
   return (
     <div style={{
