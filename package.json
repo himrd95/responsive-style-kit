@@ -1,6 +1,6 @@
 {
   "name": "responsive-style-kit",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A React utility for responsive scaling of styled-components with viewport-based size hooks.",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
