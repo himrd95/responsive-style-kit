@@ -1,16 +1,21 @@
 import React, { createContext, useContext, ReactNode } from "react";
-import { useResponsive } from "../hooks/useResponsiveValue";
+import { useResponsive, ResponsiveDimensions } from "../hooks/useResponsiveValue";
 
-type ResponsiveContextType = ReturnType<typeof useResponsive>;
-
-const ResponsiveContext = createContext<ResponsiveContextType | undefined>(undefined);
+const ResponsiveContext = createContext<ResponsiveDimensions | undefined>(undefined);
 
 interface ResponsiveThemeProviderProps {
   children: ReactNode;
+  viewport?: {
+    width: number;
+    height: number;
+  };
 }
 
-export const ResponsiveThemeProvider: React.FC<ResponsiveThemeProviderProps> = ({ children }) => {
-  const responsive = useResponsive();
+export const ResponsiveThemeProvider: React.FC<ResponsiveThemeProviderProps> = ({ 
+  children,
+  viewport
+}) => {
+  const responsive = useResponsive(viewport);
 
   return (
     <ResponsiveContext.Provider value={responsive}>
@@ -19,7 +24,7 @@ export const ResponsiveThemeProvider: React.FC<ResponsiveThemeProviderProps> = (
   );
 };
 
-export const useResponsiveContext = () => {
+export const useResponsiveContext = (): ResponsiveDimensions => {
   const context = useContext(ResponsiveContext);
   if (!context) {
     throw new Error("useResponsiveContext must be used within ResponsiveThemeProvider");
